@@ -1,30 +1,23 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility in the flutter_test package. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
 
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:lll0015assessment/main.dart';
+import 'package:lll0015assessment/main.dart'; // 确保这个路径匹配你的项目结构
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
+  testWidgets('Welcome screen test', (WidgetTester tester) async {
+    // 构建我们的应用并触发一帧。
     await tester.pumpWidget(const MyApp());
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+    // 验证“欢迎使用梦话监听器”文本是否存在。
+    expect(find.text('欢迎使用梦话监听器'), findsOneWidget);
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
+    // 验证“开始”按钮是否存在。
+    expect(find.text('开始'), findsOneWidget);
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+    // （可选）如果你的按钮点击后会导航到新的页面或有其他交互，可以在这里继续编写测试代码来模拟和验证那些行为。
+    // 例如，如果点击“开始”按钮会导航到一个新页面，并显示新的文本，则可以这样测试：
+    // await tester.tap(find.text('开始'));
+    // await tester.pumpAndSettle(); // 等待动画完成
+    // expect(find.text('新页面文本'), findsOneWidget);
   });
 }
