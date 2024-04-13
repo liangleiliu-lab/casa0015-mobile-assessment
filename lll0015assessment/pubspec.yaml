@@ -31,16 +31,18 @@ dependencies:
   flutter:
     sdk: flutter
 
-
-  # The following adds the Cupertino Icons font to your application.
-  # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.6
   audio_session: ^0.1.19
-  audio_streamer: ^4.1.1
+  audio_streamer:
+    git:
+      url: https://github.com/char5742/audio_streamer.git
+      ref: 2033f816714d4d5e6f941d5c4a20763dbf638033
   path_provider: ^2.1.3
   flutter_silero_vad:
-  git:
-    url: https://github.com/char5742/flutter_silero_vad.git
+    git:
+      url: https://github.com/char5742/flutter_silero_vad.git
+  permission_handler: ^11.3.1
+    
 dev_dependencies:
   flutter_test:
     sdk: flutter
