@@ -99,6 +99,16 @@ class recoderservice{
     File(await modelPath).writeAsBytesSync(bytes);
   }
 
+ Future<void> stopRecorder() async {
+    await recorder.startRecording();
+    if (recordingDataSubscription != null) {
+      await recordingDataSubscription?.cancel();
+      recordingDataSubscription = null;
+      await processedAudioSubscription?.cancel();
+      processedAudioSubscription = null;
+    }
+  }
+
   Int16List _transformBuffer(List<int> buffer) {
     final bytes = Uint8List.fromList(buffer);
     return Int16List.view(bytes.buffer);
