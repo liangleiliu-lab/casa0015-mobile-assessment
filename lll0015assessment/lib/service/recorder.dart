@@ -86,7 +86,8 @@ class recoderservice{
 
     processedAudioSubscription =
         processedAudioStreamController.stream.listen((buffer) async {
-      final outputPath = '${(await getTemporaryDirectory()).path}/output.wav';
+       final timestamp = DateTime.now().microsecondsSinceEpoch;
+      final outputPath = '${(await getTemporaryDirectory()).path}/output_$timestamp.wav';
       saveAsWav(buffer, outputPath);
       print('saved');
     });

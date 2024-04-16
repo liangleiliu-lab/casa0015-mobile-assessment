@@ -46,6 +46,7 @@ dependencies:
   hooks_riverpod: ^2.3.6
   workmanager: ^0.5.2
   googleapis_auth: ^1.4.1
+  google_speech: ^2.2.0
     
 dev_dependencies:
   flutter_test:
