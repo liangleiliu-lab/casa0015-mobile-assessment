@@ -2,7 +2,6 @@ import 'dart:io';
 import 'package:google_speech/google_speech.dart';
 import 'package:googleapis_auth/auth_io.dart';
 import 'package:flutter/services.dart';
-import 'package:path_provider/path_provider.dart';
 
 class AudioRecognize {
   final String fileName;
@@ -14,7 +13,7 @@ class AudioRecognize {
 
   Future<String> recognize() async {
     final serviceAccount = ServiceAccount.fromString(
-        (await rootBundle.loadString('assets/test_service_account.json')));
+        (await rootBundle.loadString('assets/steam-bonbon-405017-71087f840f78.json')));
     final speechToText = SpeechToTextBeta.viaServiceAccount(serviceAccount);
     final config = _getConfig();
     final audio = await _getAudioContent(fileName);
@@ -37,8 +36,7 @@ class AudioRecognize {
       alternativeLanguageCodes: ['en-UK']);
   
    Future<List<int>> _getAudioContent(String name) async {
-    final directory = await getApplicationDocumentsDirectory();
-    final path = '${directory.path}/$name';
-    return File(path).readAsBytesSync().toList();
+    
+    return File(name).readAsBytesSync().toList();
   }
 }

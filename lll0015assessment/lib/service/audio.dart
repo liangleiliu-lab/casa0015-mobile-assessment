@@ -18,8 +18,8 @@ class AudioService {
   }
   late AudioPlayer player;
 
-  Future<void> play() async {
-  final outputPath = '${(await getApplicationDocumentsDirectory()).path}/output.wav';
+  Future<void> play(String fileName) async {
+  final outputPath = '${(await getApplicationDocumentsDirectory()).path}/fileName';
   final outputFile = File(outputPath);
   final path = (await getApplicationDocumentsDirectory()).path;
   await listFiles(path);

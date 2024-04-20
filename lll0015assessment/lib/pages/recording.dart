@@ -2,49 +2,70 @@ import 'package:flutter/material.dart';
 import 'package:lll0015assessment/provider/recorder.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:workmanager/workmanager.dart';
-import 'package:lll0015assessment/provider/recorder.dart';
-const String recordTask = "recordTask";
+
+import '../provider/audio.dart';
+import 'result.dart';
+//const String recordTask = "recordTask";
 
 class RecordPage extends HookConsumerWidget {
+  const RecordPage({super.key});
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final isRecording = useState(false);
-
+    final controller = useStreamController<List<int>>();
+    final spots = useState<List<int>>([]);
+    useOnAppLifecycleStateChange((beforeState, currState) {
+      if (currState == AppLifecycleState.resumed) {
+        ref.read(recoderProvider).record(controller);
+      } else if (currState == AppLifecycleState.paused) {
+        ref.read(recoderProvider).stopRecorder();
+      }
+    });
+    useEffect(
+      () {
+        ref
+            .read(recoderProvider)
+            .init()
+            .then((value) => ref.read(recoderProvider).record(controller));
+        final subscription = controller.stream.listen((event) {
+          final buffer = event.toList();
+          spots.value = buffer;
+        });
+        return subscription.cancel;
+      },
+      [],
+    );
     return Scaffold(
-      body: Center(
-        child: ElevatedButton(
-          style: ElevatedButton.styleFrom(
-            shape: CircleBorder(),
-            padding: EdgeInsets.all(50),
+      body: Column(
+        children: [
+          // Waveform(audioData: spots.value),
+          ElevatedButton(
+            onPressed: () async {
+             // await ref.read(audioServiceProvider).play();
+              ref.read(recoderProvider).vad.resetState();
+              Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => ListFilesPage()),
+    );
+            },
+            child: const Text('STOP'),
           ),
-          onPressed: () {
-            if (isRecording.value) {
-              Workmanager().cancelAll();
-              ref.read(recoderProvider).stopRecorder();
-            } else {
-              Workmanager().registerOneOffTask("1", recordTask);
-              ref.read(recoderProvider).record();
-            }
-            isRecording.value = !isRecording.value;
-          },
-          child: Text(isRecording.value ? 'Stop' : 'Start'),
-        ),
+        ],
       ),
     );
   }
 }
-void callbackDispatcher() {
-  Workmanager().executeTask((task, inputData) async {
-    final RecoderProvider recoderProvider = RecoderProvider();
-    switch (task) {
-      case recordTask:
-        recoderProvider.record();
-        break;
-      case Workmanager.iOSBackgroundTask:
-        recoderProvider.record();
-        break;
-    }
-    return Future.value(true);
-  });
-}
+// void callbackDispatcher() {
+//   Workmanager().executeTask((task, inputData) async {
+//     final recoderProvider recoderprovider = recoderProvider();
+//     switch (task) {
+//       case recordTask:
+//         recoderProvider.record();
+//         break;
+//       case Workmanager.iOSBackgroundTask:
+//         recoderProvider.record();
+//         break;
+//     }
+//     return Future.value(true);
+//   });
+// }

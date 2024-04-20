@@ -63,6 +63,7 @@ class recoderservice{
     assert(isInit);
 
     await recorder.startRecording();
+    print('recording');
     await onnxModelToLocal();
     await vad.initialize(
       modelPath: await modelPath,
@@ -87,7 +88,7 @@ class recoderservice{
     processedAudioSubscription =
         processedAudioStreamController.stream.listen((buffer) async {
        final timestamp = DateTime.now().microsecondsSinceEpoch;
-      final outputPath = '${(await getTemporaryDirectory()).path}/output_$timestamp.wav';
+      final outputPath = '${(await getApplicationDocumentsDirectory()).path}/output_$timestamp.wav';
       saveAsWav(buffer, outputPath);
       print('saved');
     });

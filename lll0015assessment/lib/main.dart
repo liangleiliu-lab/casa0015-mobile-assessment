@@ -1,7 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:lll0015assessment/provider/recorder.dart';
 
-void main() {
-  runApp(const MyApp());
+import 'pages/recording.dart';
+
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  final container = ProviderContainer();
+  await container.read(recoderProvider).init();
+  runApp(
+    UncontrolledProviderScope(
+      container: container,
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -26,7 +38,7 @@ class WelcomeScreen extends StatelessWidget {
           image: DecorationImage(
             //image: AssetImage("assets/imgs/welcome_background.jpg"),
             image: AssetImage("assets/imgs/welcome_background.jpg"),
-            fit: BoxFit.cover, // 这将确保图片覆盖整个屏幕
+            fit: BoxFit.cover, 
           ),
         ),
         child: Center(
@@ -44,7 +56,10 @@ class WelcomeScreen extends StatelessWidget {
               const SizedBox(height: 20), // 用于在文本和按钮之间添加一些空间
               ElevatedButton(
                 onPressed: () {
-                  // 在这里添加按钮点击事件，如导航到应用的下一个页面
+                  Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => RecordPage()),
+                  );
                 },
                 child: const Text('开始'),
               ),

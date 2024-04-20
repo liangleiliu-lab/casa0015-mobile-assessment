@@ -11,7 +11,7 @@ class ListFilesPage extends StatefulWidget {
 
 class _ListFilesPageState extends State<ListFilesPage> {
   List<FileSystemEntity> _files = [];
-  Map<String, String> _recognizedTexts = {};
+  final Map<String, String> _recognizedTexts = {};
 
   @override
   void initState() {
