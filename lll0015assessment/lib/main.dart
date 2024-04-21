@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:lll0015assessment/provider/recorder.dart';
+import 'package:slide_digital_clock/slide_digital_clock.dart';
 
 import 'pages/recording.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final container = ProviderContainer();
-  await container.read(recoderProvider).init();
+  //await container.read(recoderProvider).init();
   runApp(
     UncontrolledProviderScope(
       container: container,
@@ -36,7 +37,6 @@ class WelcomeScreen extends StatelessWidget {
       body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
-            //image: AssetImage("assets/imgs/welcome_background.jpg"),
             image: AssetImage("assets/imgs/welcome_background.jpg"),
             fit: BoxFit.cover, 
           ),
@@ -45,20 +45,35 @@ class WelcomeScreen extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
+              DigitalClock(
+                digitAnimationStyle: Curves.easeIn,
+                is24HourTimeFormat: false,
+                areaDecoration: BoxDecoration(
+                  color: Colors.transparent,
+                ),
+                hourMinuteDigitTextStyle: TextStyle(
+                  fontSize: 50,
+                  color: Colors.white,
+                ),
+                amPmDigitTextStyle: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
               const Text(
                 '欢迎使用梦话监听器',
                 style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
-                  color: Colors.white, // 根据你的背景图片，你可能需要更改文字颜色
+                  color: Colors.white,
                 ),
               ),
-              const SizedBox(height: 20), // 用于在文本和按钮之间添加一些空间
+              const SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () {
                   Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => RecordPage()),
+                  MaterialPageRoute(builder: (context) => const RecordPage()),
                   );
                 },
                 child: const Text('开始'),

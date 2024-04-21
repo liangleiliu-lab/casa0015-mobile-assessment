@@ -5,7 +5,7 @@ class AudioService {
   AudioService() {
     player = AudioPlayer()
       ..setAudioContext(
-        const AudioContext(
+        AudioContext(
           android: AudioContextAndroid(
             audioMode: AndroidAudioMode.inCommunication,
             usageType: AndroidUsageType.voiceCommunication,
@@ -19,7 +19,7 @@ class AudioService {
   late AudioPlayer player;
 
   Future<void> play(String fileName) async {
-  final outputPath = '${(await getApplicationDocumentsDirectory()).path}/fileName';
+  final outputPath = '${(await getApplicationDocumentsDirectory()).path}/output.wav';
   final outputFile = File(outputPath);
   final path = (await getApplicationDocumentsDirectory()).path;
   await listFiles(path);

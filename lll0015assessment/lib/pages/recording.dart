@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:lll0015assessment/provider/recorder.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-
+import 'package:newton_particles/newton_particles.dart';
 import '../provider/audio.dart';
 import 'result.dart';
-//const String recordTask = "recordTask";
 
 class RecordPage extends HookConsumerWidget {
   const RecordPage({super.key});
@@ -14,41 +13,65 @@ class RecordPage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final controller = useStreamController<List<int>>();
     final spots = useState<List<int>>([]);
-    useOnAppLifecycleStateChange((beforeState, currState) {
-      if (currState == AppLifecycleState.resumed) {
-        ref.read(recoderProvider).record(controller);
-      } else if (currState == AppLifecycleState.paused) {
-        ref.read(recoderProvider).stopRecorder();
-      }
-    });
+     final newtonActive = useState<bool>(false);
+    // useOnAppLifecycleStateChange((beforeState, currState) {
+    //   if (currState == AppLifecycleState.resumed) {
+    //     ref.read(recoderProvider).record(controller);
+    //   } else if (currState == AppLifecycleState.paused) {
+    //     ref.read(recoderProvider).stopRecorder();
+    //   }
+    // });
     useEffect(
       () {
         ref
             .read(recoderProvider)
             .init()
-            .then((value) => ref.read(recoderProvider).record(controller));
+            .then((value) {
+              ref.read(recoderProvider).record(controller);
+              newtonActive.value = true; 
+            });
         final subscription = controller.stream.listen((event) {
           final buffer = event.toList();
           spots.value = buffer;
         });
-        return subscription.cancel;
+        return() {
+          subscription.cancel;
+           ref.read(recoderProvider).stopRecorder();
+           newtonActive.value = false;
+          };
       },
       [],
     );
     return Scaffold(
-      body: Column(
+      body: Stack(
         children: [
-          // Waveform(audioData: spots.value),
-          ElevatedButton(
-            onPressed: () async {
-             // await ref.read(audioServiceProvider).play();
-              ref.read(recoderProvider).vad.resetState();
-              Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => ListFilesPage()),
-    );
-            },
-            child: const Text('STOP'),
+          Newton(
+            activeEffects: [
+              RainEffect(
+                particleConfiguration: ParticleConfiguration(
+                  shape: CircleShape(),
+                  size: const Size(5, 5),
+                  color: const SingleParticleColor(color: Colors.black),
+                ),
+                effectConfiguration: const EffectConfiguration(),
+              ),
+            ],
+          ),
+          Column(
+            children: [
+              // Waveform(audioData: spots.value),
+              ElevatedButton(
+                onPressed: () async {
+                  // await ref.read(audioServiceProvider).play();
+                  ref.read(recoderProvider).vad.resetState();
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => ListFilesPage()),
+                  );
+                },
+                child: const Text('STOP'),
+              ),
+            ],
           ),
         ],
       ),
