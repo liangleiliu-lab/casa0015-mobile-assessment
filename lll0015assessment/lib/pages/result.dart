@@ -1,6 +1,6 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
-import 'dart:io';
 import 'package:audioplayers/audioplayers.dart';
 
 import '../service/trans.dart';
@@ -26,20 +26,28 @@ class _ListFilesPageState extends State<ListFilesPage> {
     final directory = await getApplicationDocumentsDirectory();
     final files = directory.listSync();
     setState(() {
-      _files = files.where((file) => file.path.endsWith('.wav')).toList();
+      _files = files.where((file) => file.path.endsWith('.wav')).toList().reversed.toList();
     });
-    _files.forEach((file) async {
-      final duration = await _getAudioDuration(file.path);
-      setState(() {
-        _fileDurations[file.path] = duration!;
-      });
-    });
+    _getDurations();
   }
 
-  Future<Duration?> _getAudioDuration(String path) async {
-    final durationInMilliseconds = await _audioPlayer.getDuration();
-    return durationInMilliseconds;
+  void _getDurations() async {
+    final futures = _files.map((file) => getWavDuration(file.path));
+    final durations = await Future.wait(futures);
+    for (var i = 0; i < _files.length; i++) {
+      _fileDurations[_files[i].path] = durations[i];
+    }
+    setState(() {});
   }
+
+ Future<Duration> getWavDuration(String filePath) async {
+  final file = File(filePath);
+  final size = await file.length();
+  final byteRate = 16000 * 16 * 1 ~/ 8;
+  final duration = size / byteRate;
+
+  return Duration(seconds: duration.round());
+}
 
   Future<void> _recognizeAudio(FileSystemEntity file) async {
     final audioRecognize = AudioRecognize(file.path);
@@ -53,7 +61,7 @@ class _ListFilesPageState extends State<ListFilesPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('List of .wav Files'),
+        title: Text('dreamtalks records'),
       ),
       body: ListView.builder(
         itemCount: _files.length,
@@ -64,9 +72,11 @@ class _ListFilesPageState extends State<ListFilesPage> {
             leading: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                IconButton(
-                  icon: Icon(Icons.play_arrow),
-                  onPressed: () => _audioPlayer.play(DeviceFileSource(file.path)),
+                Flexible(
+                  child: IconButton(
+                    icon: Icon(Icons.play_arrow),
+                    onPressed: () => _audioPlayer.play(DeviceFileSource(file.path)),
+                  ),
                 ),
                 Text('${_fileDurations[file.path]?.inSeconds ?? 0} sec'),
               ],

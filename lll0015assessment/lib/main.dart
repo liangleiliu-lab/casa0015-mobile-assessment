@@ -48,20 +48,20 @@ class WelcomeScreen extends StatelessWidget {
               DigitalClock(
                 digitAnimationStyle: Curves.easeIn,
                 is24HourTimeFormat: false,
-                areaDecoration: BoxDecoration(
+                areaDecoration: const BoxDecoration(
                   color: Colors.transparent,
                 ),
-                hourMinuteDigitTextStyle: TextStyle(
+                hourMinuteDigitTextStyle: const TextStyle(
                   fontSize: 50,
                   color: Colors.white,
                 ),
-                amPmDigitTextStyle: TextStyle(
+                amPmDigitTextStyle: const TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
                 ),
               ),
               const Text(
-                '欢迎使用梦话监听器',
+                'Record your dream words.',
                 style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
@@ -76,7 +76,7 @@ class WelcomeScreen extends StatelessWidget {
                   MaterialPageRoute(builder: (context) => const RecordPage()),
                   );
                 },
-                child: const Text('开始'),
+                child: const Text('start'),
               ),
             ],
           ),

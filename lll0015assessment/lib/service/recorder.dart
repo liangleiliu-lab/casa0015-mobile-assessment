@@ -87,8 +87,8 @@ class recoderservice{
 
     processedAudioSubscription =
         processedAudioStreamController.stream.listen((buffer) async {
-       final timestamp = DateTime.now().microsecondsSinceEpoch;
-      final outputPath = '${(await getApplicationDocumentsDirectory()).path}/output_$timestamp.wav';
+      final timestamp = DateTime.fromMicrosecondsSinceEpoch(DateTime.now().microsecondsSinceEpoch).toIso8601String().replaceAll(':', '_');
+      final outputPath = '${(await getApplicationDocumentsDirectory()).path}/dreamtalk_$timestamp.wav';
       saveAsWav(buffer, outputPath);
       print('saved');
     });
@@ -116,8 +116,8 @@ class recoderservice{
     return Int16List.view(bytes.buffer);
   }
 
-static const threshold = 900; 
-static const bufferTimeInMilliseconds = 700;
+static const threshold = 700; 
+static const bufferTimeInMilliseconds = 1500;
 
  Future<void> _handleProcessedAudio(List<int> buffer) async {
     final transformedBuffer = _transformBuffer(buffer);

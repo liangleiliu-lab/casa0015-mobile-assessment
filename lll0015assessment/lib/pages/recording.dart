@@ -5,7 +5,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:newton_particles/newton_particles.dart';
 import '../provider/audio.dart';
 import 'result.dart';
-
+import 'package:slide_countdown/slide_countdown.dart';
 class RecordPage extends HookConsumerWidget {
   const RecordPage({super.key});
 
@@ -51,15 +51,25 @@ class RecordPage extends HookConsumerWidget {
                 particleConfiguration: ParticleConfiguration(
                   shape: CircleShape(),
                   size: const Size(5, 5),
-                  color: const SingleParticleColor(color: Colors.black),
+                  color: const SingleParticleColor(color: Color.fromARGB(255, 184, 163, 163)),
                 ),
                 effectConfiguration: const EffectConfiguration(),
               ),
             ],
           ),
           Column(
+             mainAxisAlignment: MainAxisAlignment.center,
+             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               // Waveform(audioData: spots.value),
+              const Center(
+                child: SlideCountdown(
+                  duration: Duration(days: 2),
+                  countUp: true,
+                
+                ),
+              ),
+              const SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () async {
                   // await ref.read(audioServiceProvider).play();
