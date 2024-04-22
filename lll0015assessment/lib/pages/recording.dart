@@ -93,7 +93,12 @@ class RecordPage extends HookConsumerWidget {
              crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               // Waveform(audioData: spots.value),
-              Text('Detected sleep events: ${sleepEventsCount.value}'),
+              Text('detected dreamtalks: ${sleepEventsCount.value}',
+              style: const TextStyle(fontSize: 30),
+              ),
+
+              const SizedBox(height: 20), 
+
               const Center(
                 child: SlideCountdown(
                   duration: Duration(days: 2),
