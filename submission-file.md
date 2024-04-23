@@ -20,7 +20,7 @@ Upload this PDF into Moodle for submission including a copy of your presentation
 
 ## Link to GitHub Repository
 
-Flutter Application Name - MY APPLICATION NAME
+Flutter Application Name - lll0015assessment
 GitHub Repository - [https://github.com/ucl-casa-ce/casa0015-mobile-assessment](https://github.com/ucl-casa-ce/casa0015-mobile-assessment)
 
 ## Introduction to Application
