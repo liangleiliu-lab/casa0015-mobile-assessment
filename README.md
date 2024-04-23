@@ -1,8 +1,15 @@
 # sleep guardian
-
-This is the Final assessment template for CASA0014 - Please use this template and edit the relevant sections to personalise.
-This section has a short introduction to what the application is
-
+<img src="imgs/icon.jpg" alt="Watch the video">
+This application is designed to recognise and record dream words, users can easily review their own own dream words by playing the recording or text transcription.
+### app demo
+<a href="https://youtu.be/lCCb6TqLrIQ" target="_blank">
+  <img src="imgs/屏幕截图 2024-04-23 113537.png" alt="Watch the video">
+</a>
+### landing page
+<img src="imgs/landing1.png" alt="Watch the video">
+<img src="imgs/landing2.png" alt="Watch the video">
+<img src="imgs/landing3.png" alt="Watch the video">
+<img src="imgs/landing4.png" alt="Watch the video">
 ## Use this README File 
 
 Use this section to show us what your Mobile App is about.   Include a Screenshot to the App, link to the various frameworks you've used. Include your presentation video here that shows off your Mobile App.   Emojis are also fun to include 📱 😄
