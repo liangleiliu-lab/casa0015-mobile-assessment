@@ -1,22 +1,3 @@
-<!---
-
----
-title: "CASA0017: Web Architecture Final Assessment"
-author: "Steven Gray"
-date: "10 Dec 2021"
----
-
--->
-
-# Submission Guide
-
-You will need to edit this file, create a PDF using the instructions below, from this file.   Sign it digitally and upload to Moodle
-
-## How to create a PDF from Markdown
-When finished you should export to PDF using VSCode and MarkdownPDF Extension. Make sure you select no headers and no footers in the
-extension preferences before exporting to PDF.   
-
-Upload this PDF into Moodle for submission including a copy of your presentation slides.
 
 ## Link to GitHub Repository
 
@@ -25,22 +6,22 @@ GitHub Repository - [https://github.com/ucl-casa-ce/casa0015-mobile-assessment](
 
 ## Introduction to Application
 
-A brief 200 word explanation of your application and it's use.  Below create a Bibliography to code, tutorial, or plugins you've used in the project. Use this guide
-for citation - [https://www.scribbr.co.uk/referencing/harvard-website-reference/](https://www.scribbr.co.uk/referencing/harvard-website-reference/)
+Your Flutter-based "Sleep Talk Detector" app utilizes cutting-edge Voice Activity Detection (VAD) technology to identify any speech during sleep. Specifically designed for those curious about their nocturnal utterances or for sleep research purposes, this innovative application continuously monitors sounds while users are asleep. Once it detects speech, the dream talk will be record, enabling users to review what they might have said during the night. Easy to use, the app features a simple interface where users can start monitoring with just a tap before bed. In the morning, users can view a timestamped log of all speech events and play the audio, along with their transcriptions. This not only provides fascinating insights into one's sleep behavior but also aids those studying sleep disorders. By integrating robust VAD with reliable speech recognition technology, the Sleep Talk Detector offers a unique tool for exploring the mysteries of sleep talking.
 
-## Biblography
-
-1. Last name, First initial. (Year published). Title. Edition. (Only include the edition if it is not the first edition) City published: Publisher, Page(s). <http://google.com>
-
-2. Last name, First initial. (Year published). Title. Edition. (Only include the edition if it is not the first edition) City published: Publisher, Page(s).  <http://google.com>
-
+## bibliography
+1. char (2023).flutter_silero_vad <https://github.com/char5742/flutter_silero_vad><br>
+2. flutter dev （2022） slide_digital_clock 1.0.3 <https://pub.dev/packages/slide_digital_clock><br>
+3. blue-fire.xyz (2023) audioplayers 6.0.0 <https://pub.dev/packages/audioplayers><br>
+4. felixjunghans.de (2023) google_speech 5.2.0+1 <https://pub.dev/packages/google_speech><br>
+5. zac.ac (2024) parallax_rain <https://fluttergems.dev/packages/parallax_rain/><br>
+6.  farhanfadila.site (2024) slide_countdown <https://github.com/farhanfadila1717/slide_countdown><br>
 ----
 
 ## Declaration of Authorship
 
-We, AUTHORS NAME HERE, confirm that the work presented in this assessment is my own. Where information has been derived from other sources, I confirm that this has been indicated in the work.
+lianglei liu confirm that the work presented in this assessment is my own. Where information has been derived from other sources, I confirm that this has been indicated in the work.
 
 
-Digitally Sign with Your name Here
+lianglei liu
 
-ASSESSMENT DATE
+2024/4/23
